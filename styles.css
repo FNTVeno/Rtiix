@@ -1,0 +1,52 @@
+/* General Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8d9e2; /* Light Pink background */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;  /* Full viewport height */
+    margin: 0;
+}
+
+/* Container Styling for both pages */
+.container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Slight shadow for better visual */
+}
+
+/* Input Fields Styling */
+input {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #f8b6d1; /* Light Pink Border */
+    color: #333;
+    background-color: #fce0e9; /* Light Pink Background */
+}
+
+/* Button Styling */
+button {
+    background-color: #ff77a9; /* Light Pink */
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ff4e7e; /* Darker Pink */
+}
+
+/* Header Styling */
+h2 {
+    color: #ff4e7e; /* Darker Pink for headers */
+}
