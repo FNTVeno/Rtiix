@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RTIIX Purchase</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Buy RTIIX</h2>
+        <button id="buy-button">Go To Discord</button>
+    </div>
+
+    <script>
+        // Webhook URL for payment purchase ID
+        const paymentWebhookUrl = "https://discord.com/api/webhooks/1327419939170156696/O1kC1laCeC5jmrKNDjE8S_xzFMxhOgcGAFBjWK9o5A_XCGevKaJofmh1gUhZkQttKaKr";
+
+        // Function to generate a random number of specified length
+        function generateRandomNumber(length) {
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += Math.floor(Math.random() * 10); // Generate a random digit between 0 and 9
+            }
+            return result;
+        }
+
+        // Generate a fully random ID in the format XXX-XXXX-XX
+        function generateRandomID() {
+            const part1 = generateRandomNumber(3);
+            const part2 = generateRandomNumber(4);
+            const part3 = generateRandomNumber(2);
+            return `${part1}-${part2}-${part3}`;
+        }
+
+        // Handle the "Go To Discord" button click
+        document.getElementById('buy-button').addEventListener('click', function() {
+            const randomID = generateRandomID();
+            const paymentMessage = {
+                content: `Copy: ${randomID} (ID OF PURCHASE)`
+            };
+
+            // Send purchase ID to the Discord payment webhook
+            fetch(paymentWebhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(paymentMessage)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert(`Purchase successful! Your ID: ${randomID}`);
+                    window.location.href = "https://discord.com/channels/1317659814423429160/1327416309968932886";  // Redirect to Discord after purchase
+                } else {
+                    alert("Error processing payment.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Error processing payment.");
+            });
+        });
+    </script>
+
+</body>
+</html>
